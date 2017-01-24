@@ -1,0 +1,45 @@
+
+<div class="container">
+	<div class="messages">
+	<br>
+		<h4>Sent Messages</h4>
+		<% if @messages.size > 0 %>
+			<ul class="collection">
+				<% @messages.each do |message| %>
+					<li class="collection-item">
+						To: <%= link_to(User.find(message.to_id).username, {:action=>'profile', :id=>message.to_id}) %>
+						<br>
+						<br>
+						<%= message.body %>
+						<p>
+							<%= time_ago_in_words(message.created_at) %> ago
+						</p>
+					</li>
+				<% end %>
+			</ul>
+		<% else %>
+			<h5>You haven't sent anything.</h5>
+		<% end %>	
+		<br>
+		<h4>Received Messages</h4>
+
+		<% if @received_msgs.size > 0 %>
+			<ul class="collection">
+				<% @received_msgs.each do |message| %>
+					<li class="collection-item">
+						From: <%= link_to(User.find(message.user_id).username, {:action=>'profile', :id=>message.user_id}) %>
+						<br>
+						<br>
+						<%= message.body %>
+						<br>
+						<p>
+							<%= time_ago_in_words(message.created_at) %> ago
+						</p>
+					</li>
+				<% end %>
+			</ul>
+		<% else %>
+			<h5>You haven't sent anything.</h5>
+		<% end %>
+	</div>
+</div>

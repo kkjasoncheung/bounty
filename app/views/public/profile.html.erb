@@ -1,0 +1,74 @@
+
+<p id="notice"><%= notice %></p>
+<br>
+<h4><%= @user.username %>'s Profile</h4>
+<div class="row">
+  <div class="card-panel profile-card">
+    <div class="col s12 l4">
+      <p>
+        <%= image_tag @user.dp.url(:medium) %>
+      </p>
+    </div>
+    
+    <div class="col s12 l4 second-col">
+      <p>
+        <strong>First name:</strong>
+        <%= @user.first_name %>
+      </p>
+
+      <p>
+        <strong>Last name:</strong>
+        <%= @user.last_name %>
+      </p>
+
+      <p>
+        <strong>Yob:</strong>
+        <%= @user.yob %>
+      </p>
+
+      <p>
+        <strong>Gender:</strong>
+        <%= @user.gender %>
+      </p>
+
+    </div>
+
+    <div class="col s12 l4"> 
+      <p>
+        <strong>Username:</strong>
+        <%= @user.username %>
+      </p>
+
+      <p>
+        <strong>Email:</strong>
+        <%= @user.email %>
+      </p>
+
+      <p>
+        <strong>Phone:</strong>
+        <%= @user.phone %>
+      </p>
+
+      <p>
+        <strong>Year study:</strong>
+        <%= @user.year_study %>
+      </p>
+
+      <p>
+        <strong>Residence:</strong>
+        <%= @user.residence %>
+      </p>
+    </div>
+     
+  </div>
+</div>
+
+
+
+<% if session[:user_id] == @user.id %>
+	<%= link_to 'Edit', edit_user_path(@user), :class=>'btn' %> 
+<% else %>
+	<%= link_to("Send Message", {:controller=>'messages', :action=>'new', :to_id=>@user.id}, :class=>'btn') %>
+<% end %>
+
+<%= link_to 'Back', {:controller=>'public', :action=>'index'}, :class=>'btn' %>

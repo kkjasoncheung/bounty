@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @forum.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @forum.description %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @forum.location %>
+</p>
+
+<p>
+  <strong>Radius:</strong>
+  <%= @forum.radius %>
+</p>
+
+<p>
+  <strong>Duration:</strong>
+  <%= @forum.duration %>
+</p>
+
+<%= link_to 'Edit', edit_forum_path(@forum) %> |
+<%= link_to 'Back', {:controller=>'public', :action=>'index'} %>

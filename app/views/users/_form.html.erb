@@ -1,0 +1,94 @@
+<div class="row">
+  <%= form_for(user) do |f| %>
+    <% if user.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+        <ul>
+        <% user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="row">
+
+      <div class="field col s6">
+        <%= f.label :first_name %>
+        <%= f.text_field :first_name %>
+      </div>
+
+      <div class="field col s6">
+        <%= f.label :last_name %>
+        <%= f.text_field :last_name %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field col s12">
+        <%= f.label :email %>
+        <%= f.text_field :email %>
+      </div>
+    </div>
+
+    <div class="row">
+
+      <div class="field col s6">
+        <%= f.label :username %>
+        <%= f.text_field :username %>
+      </div>
+
+      <div class="field col s6">
+        <%= f.label :password %>
+        <%= f.password_field :password %>
+      </div>
+    </div>
+    
+
+    <div class="field">
+      <%= f.label :gender %>
+      <%= f.select :gender, ['M', 'F', 'Other'] %>
+    </div>
+
+     <div class="field">
+      <%= f.label :yob %>
+      <%= f.date_select :yob, :start_year=>1916 %>
+    </div>
+
+    <div class="field">
+      <%= f.label :year_study %>
+      <%= f.select :year_study, [1,2,3,4] %>
+    </div>
+
+    <div class="field">
+      <!-- map schools to select -->
+      <%= f.label :school_id, "Campus" %>
+      <%= f.select :school_id, @schools.map {|s| [s.name, s.id]} %>
+    </div>
+
+    <div class="field">
+      <% residences = ['Chestnut', 'Graduate House', 'Innis College', 'Loretto College', 'New College', "St. Michael's College", "Student family housing", 'Trinity College', 'University College', 'Victoria University', 'Woodsworth College'] %>
+      <%= f.label :residence %>
+      <%= f.select :residence, residences %>
+    </div>
+
+    <div class="field">
+      <th>Display Photo</th>
+      <td><%= f.file_field(:dp) %></td>
+    </div>
+
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  
+  $(document).ready(function() {
+    $('select').material_select();
+  });
+</script>

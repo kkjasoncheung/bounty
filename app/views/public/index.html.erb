@@ -1,0 +1,64 @@
+
+<div class="bg-container">
+	<br>
+		<h4>Welcome Back, <%= @user.username %>!</h4>
+		<h5>Check out our new posts.</h5>
+		<br>
+		<br>
+		<div class="bg">
+		<% if @forums.size == 0 %>
+			<h4 class="no-post">No Posts right now. </h4>
+		<% end %>
+			<% @forums.each_slice(3).each do |group| %>
+				<div class="row">
+					<div class="three columns">
+						<% group.each do |forum| %>
+							<div class="col s12 m4">
+								<div class="card">
+									<div class="card-content">
+										<%=image_tag User.find(forum.user_id).dp.url(:thumb) %>
+
+										<br>
+										&nbsp;
+										<span class="card-title"><%= forum.title %></span>
+										&nbsp; 
+										by <%= link_to(User.find(forum.user_id).username, {:controller=>'public', :action=>'profile', :id=>forum.user.id}) %>
+										<hr class="gold-hr">
+										<h6>Location: <%= forum.location %></h6>
+										<% if CheckExpired(forum.duration, forum.created_at) %>
+											<h6 class="expired">
+												<%= "Post has expired." %>
+											</h6>
+										<% end %>
+										<h6>Radius: <%= forum.radius %> m</h6>
+										<h6>Duration: <%= pluralize(forum.duration, 'minute') %> </h6>
+										<h6>Created at: <%= time_ago_in_words(forum.created_at) %></h6>
+										<p><%= forum.description %></p>
+										<br>
+
+										<% if CheckExpired(forum.duration, forum.created_at) %>
+											<%= button_to("Expired", {:controller=>'requests', :action=>'new', :id=>forum.id, :to_id=>forum.user_id}, :class=>'btn disabled') %>	
+										<% else %>
+											<%= button_to("Request", {:controller=>'requests', :action=>'new', :id=>forum.id, :to_id=>forum.user_id}, :class=>'btn') %>
+										<% end %>
+								
+									</div>
+								</div>
+							</div>
+						<% end %>
+					</div>
+				</div>
+			<% end %>
+		</div>
+		
+	 	
+</div>
+
+
+
+
+<!--- NEW STUF -->
+
+
+
+

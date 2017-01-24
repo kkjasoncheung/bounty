@@ -1,0 +1,56 @@
+
+<div class="container">
+	<div class="requests">
+		<br>
+		<h4>Sent Requests</h4>
+		<% if @requests.size > 0 %>
+			<ul class="collection">
+				<% @requests.each do |request| %>
+					<li class="collection-item">
+						To: <%= link_to(User.find(request.to_id).username, :action=>'profile', :id=>request.to_id) %>
+						<br>
+						<br>
+						<ul>
+							<li><%= "Product: #{request.product_name}" %></li>
+							<li><%= "Store: #{request.store_name}" %></li>
+							<li><%= "Description: #{request.description}" %></li>
+							<li><%= "Est Price: $#{request.est_price}" %></li>
+						</ul>
+						<p>
+							<%= time_ago_in_words(request.created_at) %> ago
+						</p>
+					</li>
+				<% end %>
+			</ul>
+		<% else %>
+			<h5>You haven't sent any requests.</h5>
+		<% end %>
+		<br>
+		<h4>Received Requests</h4>
+		<% if @received_reqs.size > 0 %>
+			<ul class="collection">
+				<% @received_reqs.each do |request| %>
+					<li class="collection-item">
+						<% from = User.find(request.user_id).username %>
+						From: <%= link_to(User.find(request.user_id).username, :action=>'profile', :id=>request.user_id) %>
+						<br>
+						<br>
+						<ul>
+							<li><%= "Product: #{request.product_name}" %></li>
+							<li><%= "Store: #{request.store_name}" %></li>
+							<li><%= "Description: #{request.description}" %></li>
+							<li><%= "Est Price: #{request.est_price}" %></li>
+						</ul>
+						<p>
+							<%= time_ago_in_words(request.created_at) %> ago
+						</p>
+						<%= link_to("Reject", {:controller=>'public', :action=>'reject', :to_id=>request.user_id} ,:class=>'btn red') %>
+						<%= link_to("Confirm", {:controller=>'public', :action=>'confirm', :to_id=>request.user_id} ,:class=>'btn teal') %>
+					</li>
+				<% end %>
+			</ul>
+		<% else %>
+			<h5>You haven't sent any requests.</h5>
+		<% end %>
+	</div>
+</div>

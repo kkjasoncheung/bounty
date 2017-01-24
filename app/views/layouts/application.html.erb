@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bounty</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+   <!-- ADD MATERIALIZE -->
+	  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+   
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+	  <!-- Add jQuery -->  
+	  <script
+	  src="https://code.jquery.com/jquery-3.1.1.min.js"
+	  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+	  crossorigin="anonymous"></script>       
+    <style type="text/css">
+        body {
+         display: flex;
+         min-height: 100vh;
+         flex-direction: column;
+       }
+       main {
+           flex: 1 0 auto;
+       }
+
+    </style>
+
+  </head>
+
+  <body>
+  
+  <nav>
+    <div class="nav-wrapper">
+      &nbsp;&nbsp;<%= link_to("Bounty", {:controller=>'public', :action=>'index'}, :class=>'brand-logo') %>
+      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+      <ul class="right hide-on-med-and-down">
+        <li><%= link_to('Home', :controller=>'public', :action=>'login') %></li>
+          <li><%= link_to('Profile', {:controller=>'public', :action=>'profile', :id=>session[:user_id]}) %></li>
+          <li><%= link_to('Messages', {:controller=>'public', :action=>'messages_inbox', :id=>session[:user_id]}) %></li>
+          <li><%= link_to('Requests', {:controller=>'public', :action=>'requests_inbox', :id=>session[:user_id]}) %></li>
+          <li><%= link_to('New Post', {:controller=>'forums', :action=>'new', :id=>session[:user_id]}) %></li>
+            <li><%= link_to('Logout', {:controller=>'public', :action=>'logout', :id=>session[:user_id]}) %></li>
+        <li><a href="#" class="search-btn"><i class="material-icons">search</i></a></li>
+      </ul>
+      <ul class="side-nav" id="mobile-demo">
+        <li><%= link_to('Home', :controller=>'public', :action=>'login') %></li>
+          <li><%= link_to('Profile', {:controller=>'public', :action=>'profile', :id=>session[:user_id]}) %></li>
+          <li><%= link_to('Messages', {:controller=>'public', :action=>'messages_inbox', :id=>session[:user_id]}) %></li>
+          <li><%= link_to('Requests', {:controller=>'public', :action=>'requests_inbox', :id=>session[:user_id]}) %></li>
+          <li><%= link_to('New Post', {:controller=>'forums', :action=>'new', :id=>session[:user_id]}) %></li>
+            <li><%= link_to('Logout', {:controller=>'public', :action=>'logout', :id=>session[:user_id]}) %></li>
+        <li><a href="#" class="search-btn"><i class="material-icons">search</i></a></li>
+      </ul>
+    </div>
+  </nav>
+
+  
+
+  <main>
+    <!-- SEARCH -->
+    <div class="search_row row">
+      <div class="search_div col s12">
+        <form class="navbar-form navbar-right" role="search">
+            <div class="form-group">
+                <%= form_for(:club) do %>
+
+                    <%= text_field_tag(:search, params[:search], :class=>"search_field",:placeholder=>"Search") %>
+                    &nbsp;
+                    <%= submit_tag("Search",:id=>'search_button', :class=>'btn') %>
+                <% end %>
+                <%# params[:search] %>
+            </div>
+
+        </form>
+     </div>
+    </div>
+    <div class="container yield-container">
+        <% if session[:unread_messages] > 0 && session[:unread_requests] = 0 %>
+              <div class="unread">
+                <%= session[:unread_messages] %> unread messages.
+              </div>
+        <% elsif session[:unread_requests] > 0 && session[:unread_messages] = 0 %>
+              <div class="unread">
+                <%= session[:unread_requests] %> unread requests.
+              </div>
+        <% elsif session[:unread_requests] > 0 && session[:unread_messages] > 0 %>
+              <div class="unread">
+                <%= session[:unread_messages] %> unread messages.
+                <%= session[:unread_requests] %> unread requests.
+              </div>
+        <% else %>
+        <% end %>
+
+        
+      <%= yield %>
+
+      
+
+    </div>
+  </main>
+
+  <footer class="page-footer blue-grey darken-4">
+     
+    <div class="footer-copyright">
+        <div class="container">
+            © 2017 Copyright Jason, Dinoyan, Richard, Ansh
+            <a class="grey-text text-lighten-4 right" href="https://github.com/Dinoyan/UoftHacks">Source Code</a>
+        </div>
+    </div>
+
+  </footer>
+
+  <script type="text/javascript">
+      
+    $(document).ready(function(){
+      
+      $(".search-btn").mouseenter(function(){
+        $(".search_div").fadeIn('fast');
+      });
+
+      $(".search_div").mouseleave(function(){
+        $(".search_div").fadeOut('fast');
+      });
+
+      $(".button-collapse").sideNav();
+
+    });
+
+
+  </script>
+  </body>
+</html>

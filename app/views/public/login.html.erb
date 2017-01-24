@@ -1,0 +1,19 @@
+<div class="container">
+	<br>
+	<h3>Sign In</h3>
+	<br>
+	<h5>Earn some extra money today!</h5>
+	<br>
+
+	<%= form_tag(:action=>'attempt_login') do %>
+		<%= text_field_tag(:email,'',:placeholder=>'Email', :class=>'form-control email_field') %>
+		<br>
+		<%= password_field_tag(:password,'', :class=>'form-control', :placeholder=>'Password') %>
+		<br>
+		<div class='text-center'>
+			<%= submit_tag("Sign In", :class=>'btn btn-success') %>
+		</div>
+	<% end %>
+	<br>
+	<h6>Don't have an account? <%= link_to("Sign up now!", {:controller=>'users', :action=>'new'}) %></h6>
+</div>

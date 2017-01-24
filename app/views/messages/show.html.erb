@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+
+<div class="card-panel">
+
+	<h5>To: <%= link_to(User.find(@message.to_id).username, :controller=>'public', :action=>'profile', :id=>@message.to_id) %><h5>
+	<br>
+	<%= @message.body %>
+	<br>
+
+</div>
+
+<%= link_to 'Messages', {:controller=>'public', :action=>'messages_inbox'}, :class=>'btn' %> 
+&nbsp;
+<%= link_to 'Back', public_index_path, :class=>'btn' %>

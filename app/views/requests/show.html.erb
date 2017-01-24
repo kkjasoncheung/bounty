@@ -1,0 +1,35 @@
+<h5 id="notice"><%= notice %></h5>
+<br>
+
+<div class="card-panel">
+  <p>
+    <strong>Product name:</strong>
+    <%= @request.product_name %>
+  </p>
+
+  <p>
+    <strong>Store name:</strong>
+    <%= @request.store_name %>
+  </p>
+
+  <p>
+    <strong>Description:</strong>
+    <%= @request.description %>
+  </p>
+
+  <p>
+    <strong>Est price:</strong>
+    <%= @request.est_price %>
+  </p>
+
+  <p>
+    <strong>Delivery location:</strong>
+    <%= @request.delivery_location %>
+  </p>
+
+</div>
+
+
+
+
+<%= link_to 'Back', public_index_path, :class=>'btn' %>
