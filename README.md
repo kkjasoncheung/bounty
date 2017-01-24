@@ -8,7 +8,7 @@
 
 <h4> Technologies, Languages, Frameworks used include: </h4>
 <ul>
-<li> Ruby on Rails </li>
+<li> Ruby, Ruby on Rails </li>
 <li> MySQL Database </li>
 <li> Javascript </li>
 <li> Google Geocoding API</li>
@@ -16,3 +16,10 @@
 <li> Materialize CSS Framework </li>
 </ul>
 
+<h4> How to run Bounty. </h4>
+
+<p>
+  To run the app, first install Ruby and Ruby on Rails on your machine. Next, clone the app and navigate to its directory via the terminal. Then execute 'rails s' and open localhost:3000 on your web browser.
+</p>
+
+<h4> This app is fully functional as of now, but will undergo future implementations and revisions to add more functionality and improve the UI/UX. </h4> 
