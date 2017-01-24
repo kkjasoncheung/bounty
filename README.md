@@ -1,5 +1,3 @@
-# README
-
 <h1> Bounty </h1>
 
 <p> 
