@@ -14,8 +14,13 @@ class ForumsController < ApplicationController
 
   # GET /forums/new
   def new
-    @forum = Forum.new
-    @forum.user_id = session[:user_id]  
+    if !(session[:user_id])
+      redirect_to(:controller=>'public', :action=>'login')
+    else
+      @forum = Forum.new
+      @forum.user_id = session[:user_id]  
+    end
+ 
   end
 
   # GET /forums/1/edit

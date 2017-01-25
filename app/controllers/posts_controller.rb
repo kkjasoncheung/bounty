@@ -14,8 +14,13 @@ class PostsController < ApplicationController
 
   # GET /posts/new
   def new
-    @post = Post.new
-    @coords = params[:myLoc]
+    if session[:user_id]
+      redirect_to(:controller=>'public', :action=>'login')
+    else
+      @post = Post.new
+      @coords = params[:myLoc]
+    end
+  
   end
 
   # GET /posts/1/edit

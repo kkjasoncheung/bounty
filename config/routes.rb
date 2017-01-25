@@ -29,7 +29,7 @@ Rails.application.routes.draw do
 
 
 
-  root 'public#index'
+  root 'public#login'
 
   match ':controller(/:action(/:id))', :via=>[:get, :post]
 

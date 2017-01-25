@@ -61,24 +61,37 @@ class PublicController < ApplicationController
   end
 
   def profile
-    check_search(params[:search])
 
-    @user = User.find(params[:id])
+    if !(session[:user_id])
+      redirect_to(:action=>'login')
+    else
+      check_search(params[:search])
+
+      @user = User.find(params[:id])
+
+    end
+   
   end
 
   def messages_inbox
 
-    check_search(params[:search])
+    if !(session[:user_id])
+      redirect_to(:action=>'login')
+    else
+      check_search(params[:search])
 
-    @user = User.find(session[:user_id])
-    @messages = @user.messages.order(:created_at => :desc)
-    @received_msgs = Message.where(to_id: session[:user_id]).order(:created_at => :desc)
-    
-    @received_msgs.each do |msg|
-      msg.update_attributes(:read=>true)
+      @user = User.find(session[:user_id])
+      @messages = @user.messages.order(:created_at => :desc)
+      @received_msgs = Message.where(to_id: session[:user_id]).order(:created_at => :desc)
+      
+      @received_msgs.each do |msg|
+        msg.update_attributes(:read=>true)
+      end
+      unread_messages = Message.where(:to_id=>session[:user_id]).where(:read=>false)
+      session[:unread_messages] = unread_messages.size
     end
-    unread_messages = Message.where(:to_id=>session[:user_id]).where(:read=>false)
-    session[:unread_messages] = unread_messages.size
+
+    
   end
 
   def search
@@ -89,18 +102,23 @@ class PublicController < ApplicationController
     end
   end
 
-  def requests_inbox
+  def requests_inbox  
 
-    check_search(params[:search])
+    if !(session[:user_id])
+      redirect_to(:action=>'login')
+    else
 
-    @user = User.find(session[:user_id])
-    @requests = @user.requests.order(:created_at => :desc)
-    @received_reqs = Request.where(to_id: session[:user_id]).order(:created_at => :desc)
-    @received_reqs.each do |req|
-      req.update_attributes(:read=>true)
+      check_search(params[:search])
+
+      @user = User.find(session[:user_id])
+      @requests = @user.requests.order(:created_at => :desc)
+      @received_reqs = Request.where(to_id: session[:user_id]).order(:created_at => :desc)
+      @received_reqs.each do |req|
+        req.update_attributes(:read=>true)
+      end
+      unread_requests = Request.where(:to_id=>session[:user_id]).where(:read=>false)
+      session[:unread_requests] = unread_requests.size
     end
-    unread_requests = Request.where(:to_id=>session[:user_id]).where(:read=>false)
-    session[:unread_requests] = unread_requests.size
   end
 
   def send_request
