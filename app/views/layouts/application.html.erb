@@ -83,22 +83,21 @@
      </div>
     </div>
     <div class="container yield-container">
-        <% if session[:unread_messages] > 0 && session[:unread_requests] = 0 %>
-              <div class="unread">
-                <%= session[:unread_messages] %> unread messages.
-              </div>
-        <% elsif session[:unread_requests] > 0 && session[:unread_messages] = 0 %>
-              <div class="unread">
-                <%= session[:unread_requests] %> unread requests.
-              </div>
-        <% elsif session[:unread_requests] > 0 && session[:unread_messages] > 0 %>
-              <div class="unread">
-                <%= session[:unread_messages] %> unread messages.
-                <%= session[:unread_requests] %> unread requests.
-              </div>
-        <% else %>
-        <% end %>
-
+      <% if session[:unread_messages] and (session[:unread_messages] > 0 && session[:unread_requests] = 0) %>
+                <div class="unread">
+                  <%= session[:unread_messages] %> unread messages.
+                </div>
+          <% elsif session[:unread_requests] and (session[:unread_requests] > 0 && session[:unread_messages] = 0 )%>
+                <div class="unread">
+                  <%= session[:unread_requests] %> unread requests.
+                </div>
+          <% elsif (session[:unread_requests] and session[:unread_messages]) and (session[:unread_requests] > 0 && session[:unread_messages] > 0 )%>
+                <div class="unread">
+                  <%= session[:unread_messages] %> unread messages.
+                  <%= session[:unread_requests] %> unread requests.
+                </div>
+          <% else %>
+      <% end %>
         
       <%= yield %>
 
